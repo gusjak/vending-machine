@@ -58,5 +58,80 @@ namespace vending_machine
                 Console.WriteLine($"{index++}. {item.Name}, {item.Price} SEK.");
             }
         }
+        
+        public Food BuyMeal(string input, int money)
+        {
+            int.TryParse(input, out int number);
+
+            if (number > 5 || number < 1)
+            {
+                return null;
+            }
+
+            var selectedMeal = FoodMenu[number - 1];
+
+            if (selectedMeal.Price > money)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\nYou don't have enough money to buy this.");
+                Console.ResetColor();
+                return null;
+            }
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"\nYou have selected {selectedMeal.Name}, that'll be {selectedMeal.Price} SEK.");
+            Console.ResetColor();
+            return selectedMeal;
+        }
+        
+        public Drinks BuyDrink(string input, int money)
+        {
+            int.TryParse(input, out int number);
+
+            if (number > 5 || number < 1)
+            {
+                return null;
+            }
+
+            var selectedDrink = DrinksMenu[number - 1];
+
+            if (selectedDrink.Price > money)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\nYou don't have enough money to buy this.");
+                Console.ResetColor();
+                return null;
+            }
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"\nYou have selected {selectedDrink.Name}, that'll be {selectedDrink.Price} SEK.");
+            Console.ResetColor();
+            return selectedDrink;
+        }
+        
+        public Snacks BuySnack(string input, int money)
+        {
+            int.TryParse(input, out int number);
+
+            if (number > 5 || number < 1)
+            {
+                return null;
+            }
+
+            var selectedSnack = SnacksMenu[number - 1];
+
+            if (selectedSnack.Price > money)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\nYou don't have enough money to buy this.");
+                Console.ResetColor();
+                return null;
+            }
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"\nYou have selected 1X {selectedSnack.Name}, that'll be {selectedSnack.Price} SEK.");
+            Console.ResetColor();
+            return selectedSnack;
+        }
     }
 }

@@ -11,6 +11,8 @@ namespace vending_machine
             Console.ResetColor();
 
             var vendingMachine = new VendingMachine();
+            var customer = new Customer();
+            var atm = new Atm();
 
             while (true)
             {
@@ -18,7 +20,7 @@ namespace vending_machine
                 Console.WriteLine("1. Check Menu");
                 Console.WriteLine("2. ATM");
                 Console.WriteLine("3. Check Wallet For Cash");
-                Console.WriteLine("4. Check Receipt");
+                Console.WriteLine("4. Receipt");
                 Console.WriteLine("5. Quit.");
 
                 var input = Console.ReadLine();
@@ -47,11 +49,15 @@ namespace vending_machine
                                 vendingMachine.ShowFoodMenu();
                                 Console.WriteLine("6. Go back.");
                                 var foodInput = Console.ReadLine();
+                                var foodItem = vendingMachine.BuyMeal(foodInput, customer.Money);
 
-                                if (foodInput == "6")
+                                if (foodInput == "6" || foodItem == null)
                                 {
                                     continue;
                                 }
+
+                                customer.RemoveMoney(foodItem.Price);
+                                customer.AddMeal(foodItem);
                                 
                                 Console.WriteLine("\nWant to order something else?");
                                 Console.WriteLine("1. Yes.");
@@ -77,11 +83,15 @@ namespace vending_machine
                                 vendingMachine.ShowDrinksMenu();
                                 Console.WriteLine("6. Go back");
                                 var drinksInput = Console.ReadLine();
+                                var drinkItem = vendingMachine.BuyDrink(drinksInput, customer.Money);
 
-                                if (drinksInput == "6")
+                                if (drinksInput == "6" || drinkItem == null)
                                 {
                                     continue;
                                 }
+
+                                customer.RemoveMoney(drinkItem.Price);
+                                customer.AddDrink(drinkItem);
 
                                 Console.WriteLine("\nWant to order something else?");
                                 Console.WriteLine("1. Yes.");
@@ -107,11 +117,15 @@ namespace vending_machine
                                 vendingMachine.ShowSnacksMenu();
                                 Console.WriteLine("6. Go back");
                                 var snacksInput = Console.ReadLine();
+                                var snackItem = vendingMachine.BuySnack(snacksInput, customer.Money);
 
-                                if (snacksInput == "6")
+                                if (snacksInput == "6" || snackItem == null)
                                 {
                                     continue;
                                 }
+
+                                customer.RemoveMoney(snackItem.Price);
+                                customer.AddSnack(snackItem);
 
                                 Console.WriteLine("\nWant to order something else?");
                                 Console.WriteLine("1. Yes.");
@@ -144,7 +158,6 @@ namespace vending_machine
                             Console.WriteLine("\n***** ATM *****");
                             Console.ResetColor();
                             
-                            Console.WriteLine("How may I be of service?");
                             Console.WriteLine("1. Show current balance.");
                             Console.WriteLine("2. Withdraw Money");
                             Console.WriteLine("3. Deposit Money");
@@ -154,19 +167,35 @@ namespace vending_machine
 
                             if (bankInput == "1")
                             {
-                                Console.WriteLine("\nYou currently have X SEK.");
+                                atm.ShowBalance();
                                 continue;
                             }
 
                             if (bankInput == "2")
                             {
-                                Console.WriteLine("\nHow much would you like want to withdraw?");
+                                atm.ShowBalance();
+                                Console.WriteLine("How much would you like want to withdraw?");
+                                int.TryParse(Console.ReadLine(), out int amount);
+                                var money = atm.Withdraw(amount);
+                                customer.AddMoney(money);
                                 continue;
                             }
 
                             if (bankInput == "3")
                             {
-                                Console.WriteLine("\nHow much would you like want to deposit?");
+                                Console.WriteLine($"\nYou currently carry {customer.Money} SEK.");
+                                Console.WriteLine("How much would you like want to deposit?");
+                                int.TryParse(Console.ReadLine(), out int amount);
+
+                                if (customer.Money < amount)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("\nYou have insufficient funds.");
+                                    Console.ResetColor();
+                                    continue;
+                                }
+                                var money = atm.Deposit(amount);
+                                customer.RemoveMoney(money);
                                 continue;
                             }
 
@@ -178,11 +207,21 @@ namespace vending_machine
                         break;
                     
                     case "3": 
-                        Console.WriteLine("\nYou currently have X SEK.");
+                        if (customer.Money == 0)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("\nYour wallet is empty.");
+                            Console.ResetColor();
+                            break;
+                        }
+
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"\nYou currently have {customer.Money} SEK.");
+                        Console.ResetColor();
                         break;
                     
                     case "4":
-                        Console.WriteLine("\nYou have bought X items.");
+                        customer.CheckReceipt();
                         break;
                     
                     case "5":
