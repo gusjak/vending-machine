@@ -16,7 +16,7 @@ namespace vending_machine
             if (Account < amount)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\nUnfortunately, you only have {Account} SEK in your account.");
+                Console.WriteLine($"\nYou have withdrawn all your life savings already.");
                 Console.ResetColor();
                 return 0;
             }
@@ -39,7 +39,7 @@ namespace vending_machine
             if (Account == 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\nUnfortunately, you only have {Account} SEK in your account.");
+                Console.WriteLine($"\nYou have nothing left in your account.");
                 Console.ResetColor();
             }
             else

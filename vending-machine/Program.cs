@@ -16,7 +16,9 @@ namespace vending_machine
 
             while (true)
             {
-                Console.WriteLine("\nWhat would you like to do?");
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.WriteLine("\n***** VENDING MACHINE ***** ");
+                Console.ResetColor();
                 Console.WriteLine("1. Check Menu");
                 Console.WriteLine("2. ATM");
                 Console.WriteLine("3. Check Wallet For Cash");
@@ -30,7 +32,8 @@ namespace vending_machine
                     case "1":
                         while (true)
                         {
-                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.Clear();
+                            Console.ForegroundColor = ConsoleColor.DarkMagenta;
                             Console.WriteLine("\n***** MENU *****");
                             Console.ResetColor();
                             
@@ -43,7 +46,8 @@ namespace vending_machine
                             
                             if (menuInput == "1")
                             {
-                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.Clear();
+                                Console.ForegroundColor = ConsoleColor.DarkMagenta;
                                 Console.WriteLine("\n***** FOOD *****");
                                 Console.ResetColor();
                                 vendingMachine.ShowFoodMenu();
@@ -53,6 +57,7 @@ namespace vending_machine
 
                                 if (foodInput == "6" || foodItem == null)
                                 {
+                                    Console.Clear();
                                     continue;
                                 }
 
@@ -66,18 +71,21 @@ namespace vending_machine
                                 
                                 if (answer == "1")
                                 {
+                                    Console.Clear();
                                     continue;
                                 }
 
                                 if (answer == "2")
                                 {
+                                    Console.Clear();
                                     break;
                                 }
                             }
                             
                             if (menuInput == "2")
                             {
-                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.Clear();
+                                Console.ForegroundColor = ConsoleColor.DarkMagenta;
                                 Console.WriteLine("\n***** DRINKS *****");
                                 Console.ResetColor();
                                 vendingMachine.ShowDrinksMenu();
@@ -87,6 +95,7 @@ namespace vending_machine
 
                                 if (drinksInput == "6" || drinkItem == null)
                                 {
+                                    Console.Clear();
                                     continue;
                                 }
 
@@ -100,18 +109,21 @@ namespace vending_machine
 
                                 if (answer == "1")
                                 {
+                                    Console.Clear();
                                     continue;
                                 }
 
                                 if (answer == "2")
                                 {
+                                    Console.Clear();
                                     break;
                                 }
                             }
                             
                             if (menuInput == "3")
                             {
-                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.Clear();
+                                Console.ForegroundColor = ConsoleColor.DarkMagenta;
                                 Console.WriteLine("\n***** SNACKS *****");
                                 Console.ResetColor();
                                 vendingMachine.ShowSnacksMenu();
@@ -121,6 +133,7 @@ namespace vending_machine
 
                                 if (snacksInput == "6" || snackItem == null)
                                 {
+                                    Console.Clear();
                                     continue;
                                 }
 
@@ -134,17 +147,20 @@ namespace vending_machine
 
                                 if (answer == "1")
                                 {
+                                    Console.Clear();
                                     continue;
                                 }
 
                                 if (answer == "2")
                                 {
+                                    Console.Clear();
                                     break;
                                 }
                             }
 
                             if (menuInput == "4")
                             {
+                                Console.Clear();
                                 break;
                             }
                             
@@ -154,6 +170,7 @@ namespace vending_machine
                     case "2":
                         while (true)
                         {
+                            Console.Clear();
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine("\n***** ATM *****");
                             Console.ResetColor();
@@ -167,12 +184,14 @@ namespace vending_machine
 
                             if (bankInput == "1")
                             {
+                                Console.Clear();
                                 atm.ShowBalance();
                                 continue;
                             }
 
                             if (bankInput == "2")
                             {
+                                Console.Clear();
                                 atm.ShowBalance();
                                 Console.WriteLine("How much would you like want to withdraw?");
                                 int.TryParse(Console.ReadLine(), out int amount);
@@ -183,12 +202,25 @@ namespace vending_machine
 
                             if (bankInput == "3")
                             {
+                                Console.Clear();
+                                if (customer.Money == 0)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("\nYou have no money to deposit.");
+                                    Console.ResetColor();
+                                    continue;
+                                }
+                                
+                                Console.ForegroundColor = ConsoleColor.Green;
                                 Console.WriteLine($"\nYou currently carry {customer.Money} SEK.");
+                                Console.ResetColor();
+                                
                                 Console.WriteLine("How much would you like want to deposit?");
                                 int.TryParse(Console.ReadLine(), out int amount);
 
                                 if (customer.Money < amount)
                                 {
+                                    Console.Clear();
                                     Console.ForegroundColor = ConsoleColor.Red;
                                     Console.WriteLine("\nYou have insufficient funds.");
                                     Console.ResetColor();
@@ -197,6 +229,7 @@ namespace vending_machine
 
                                 if (customer.Money >= amount)
                                 {
+                                    Console.Clear();
                                     var pocketMoney = atm.Deposit(amount);
                                     customer.RemoveMoney(pocketMoney);
                                     Console.ForegroundColor = ConsoleColor.Green;
@@ -208,12 +241,14 @@ namespace vending_machine
 
                             if (bankInput == "4")
                             {
+                                Console.Clear();
                                 break;
                             }
                         }
                         break;
                     
-                    case "3": 
+                    case "3":
+                        Console.Clear();
                         if (customer.Money == 0)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
@@ -228,10 +263,12 @@ namespace vending_machine
                         break;
                     
                     case "4":
+                        Console.Clear();
                         customer.CheckReceipt();
                         break;
                     
                     case "5":
+                        Console.Clear();
                         Console.WriteLine("\nThank you for using the Virtual Vending Machine 2.19");
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Shutting down...");
@@ -239,7 +276,6 @@ namespace vending_machine
                         Environment.Exit(0);
                         break;
                 }
-                break;
             }
         }
     }

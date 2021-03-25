@@ -8,15 +8,15 @@ namespace vending_machine
     {
         public int Money { get; private set; }
 
-        private readonly List<Food> _foodCart;
-        private readonly List<Drinks> _drinksCart;
-        private readonly List<Snacks> _snacksCart;
+        public List<Food> foodCart;
+        public List<Drinks> drinksCart;
+        public List<Snacks> snacksCart;
 
         public Customer()
         {
-            _foodCart = new List<Food>();
-            _drinksCart = new List<Drinks>();
-            _snacksCart = new List<Snacks>();
+            foodCart = new List<Food>();
+            drinksCart = new List<Drinks>();
+            snacksCart = new List<Snacks>();
         }
 
         public void AddMoney(int amount)
@@ -36,7 +36,7 @@ namespace vending_machine
                 return;
             }
 
-            _foodCart.Add(foodItem);
+            foodCart.Add(foodItem);
         }
         
         public void AddDrink(Drinks drinkItem)
@@ -46,7 +46,7 @@ namespace vending_machine
                 return;
             }
 
-            _drinksCart.Add(drinkItem);
+            drinksCart.Add(drinkItem);
         }
         public void AddSnack(Snacks snackItem)
         {
@@ -55,12 +55,12 @@ namespace vending_machine
                 return;
             }
 
-            _snacksCart.Add(snackItem);
+            snacksCart.Add(snackItem);
         }
 
         public void CheckReceipt()
         {
-            if (_foodCart.Count == 0 && _drinksCart.Count == 0 && _snacksCart.Count == 0)
+            if (foodCart.Count == 0 && drinksCart.Count == 0 && snacksCart.Count == 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\nYou haven't bought anything!");
@@ -71,22 +71,22 @@ namespace vending_machine
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("\n***** RECEIPT *****");
             Console.ResetColor();
-            foreach (var meal in _foodCart)
+            foreach (var meal in foodCart)
             {
                 Console.WriteLine($"1X {meal.Name} - {meal.Price} SEK.");
             }
-            foreach (var drink in _drinksCart)
+            foreach (var drink in drinksCart)
             {
                 Console.WriteLine($"1X {drink.Name} - {drink.Price} SEK.");
             }
-            foreach (var snack in _snacksCart)
+            foreach (var snack in snacksCart)
             {
                 Console.WriteLine($"1X {snack.Name} - {snack.Price} SEK.");
             }
 
-            var mealCost = _foodCart.Sum(p => p.Price);
-            var drinkCost = _drinksCart.Sum(p => p.Price);
-            var snackCost = _snacksCart.Sum(p => p.Price);
+            var mealCost = foodCart.Sum(p => p.Price);
+            var drinkCost = drinksCart.Sum(p => p.Price);
+            var snackCost = snacksCart.Sum(p => p.Price);
 
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("\n***** TOTAL *****");
