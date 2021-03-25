@@ -30,18 +30,7 @@ namespace vending_machine
 
         public int Deposit(int amount)
         {
-            if (amount < Account)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\nYou don't have enough money to make this deposit.");
-                Console.ResetColor();
-                return 0;
-            }
-            
             Account += amount;
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"\nSuccessfully deposited {amount} SEK to your account.");
-            Console.ResetColor();
             return amount;
         }
 

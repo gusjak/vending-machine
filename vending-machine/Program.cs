@@ -176,8 +176,8 @@ namespace vending_machine
                                 atm.ShowBalance();
                                 Console.WriteLine("How much would you like want to withdraw?");
                                 int.TryParse(Console.ReadLine(), out int amount);
-                                var money = atm.Withdraw(amount);
-                                customer.AddMoney(money);
+                                var pocketMoney = atm.Withdraw(amount);
+                                customer.AddMoney(pocketMoney);
                                 continue;
                             }
 
@@ -194,9 +194,16 @@ namespace vending_machine
                                     Console.ResetColor();
                                     continue;
                                 }
-                                var money = atm.Deposit(amount);
-                                customer.RemoveMoney(money);
-                                continue;
+
+                                if (customer.Money >= amount)
+                                {
+                                    var pocketMoney = atm.Deposit(amount);
+                                    customer.RemoveMoney(pocketMoney);
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    Console.WriteLine($"\nSuccessfully deposited {pocketMoney} to your account.");
+                                    Console.ResetColor();
+                                    continue;
+                                }
                             }
 
                             if (bankInput == "4")
