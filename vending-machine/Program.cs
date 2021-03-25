@@ -30,9 +30,9 @@ namespace vending_machine
                 switch (input)
                 {
                     case "1":
+                        Console.Clear();
                         while (true)
                         {
-                            Console.Clear();
                             Console.ForegroundColor = ConsoleColor.DarkMagenta;
                             Console.WriteLine("\n***** MENU *****");
                             Console.ResetColor();
@@ -55,9 +55,14 @@ namespace vending_machine
                                 var foodInput = Console.ReadLine();
                                 var foodItem = vendingMachine.BuyMeal(foodInput, customer.Money);
 
-                                if (foodInput == "6" || foodItem == null)
+                                if (foodInput == "6")
                                 {
                                     Console.Clear();
+                                    continue;
+                                }
+
+                                if (foodItem == null)
+                                {
                                     continue;
                                 }
 
@@ -93,9 +98,14 @@ namespace vending_machine
                                 var drinksInput = Console.ReadLine();
                                 var drinkItem = vendingMachine.BuyDrink(drinksInput, customer.Money);
 
-                                if (drinksInput == "6" || drinkItem == null)
+                                if (drinksInput == "6")
                                 {
                                     Console.Clear();
+                                    continue;
+                                }
+
+                                if (drinkItem == null)
+                                {
                                     continue;
                                 }
 
@@ -131,15 +141,20 @@ namespace vending_machine
                                 var snacksInput = Console.ReadLine();
                                 var snackItem = vendingMachine.BuySnack(snacksInput, customer.Money);
 
-                                if (snacksInput == "6" || snackItem == null)
+                                if (snacksInput == "6")
                                 {
                                     Console.Clear();
                                     continue;
                                 }
 
+                                if (snackItem == null)
+                                {
+                                    continue;
+                                }
+
                                 customer.RemoveMoney(snackItem.Price);
                                 customer.AddSnack(snackItem);
-
+                                
                                 Console.WriteLine("\nWant to order something else?");
                                 Console.WriteLine("1. Yes.");
                                 Console.WriteLine("2. No");
@@ -168,9 +183,9 @@ namespace vending_machine
                         break;
                     
                     case "2":
+                        Console.Clear();
                         while (true)
                         {
-                            Console.Clear();
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine("\n***** ATM *****");
                             Console.ResetColor();
@@ -205,6 +220,7 @@ namespace vending_machine
                                 Console.Clear();
                                 if (customer.Money == 0)
                                 {
+                                    Console.Clear();
                                     Console.ForegroundColor = ConsoleColor.Red;
                                     Console.WriteLine("\nYou have no money to deposit.");
                                     Console.ResetColor();
@@ -248,15 +264,16 @@ namespace vending_machine
                         break;
                     
                     case "3":
-                        Console.Clear();
                         if (customer.Money == 0)
                         {
+                            Console.Clear();
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("\nYour wallet is empty.");
                             Console.ResetColor();
                             break;
                         }
-
+                        
+                        Console.Clear();
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine($"\nYou currently have {customer.Money} SEK.");
                         Console.ResetColor();

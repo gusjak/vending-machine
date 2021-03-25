@@ -72,12 +72,14 @@ namespace vending_machine
 
             if (selectedMeal.Price > money)
             {
+                Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\nYou don't have enough money to buy this.");
                 Console.ResetColor();
                 return null;
             }
 
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"\nYou have selected {selectedMeal.Name}, that'll be {selectedMeal.Price} SEK.");
             Console.ResetColor();
@@ -97,12 +99,14 @@ namespace vending_machine
 
             if (selectedDrink.Price > money)
             {
+                Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\nYou don't have enough money to buy this.");
                 Console.ResetColor();
                 return null;
             }
 
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"\nYou have selected {selectedDrink.Name}, that'll be {selectedDrink.Price} SEK.");
             Console.ResetColor();
@@ -122,12 +126,14 @@ namespace vending_machine
 
             if (selectedSnack.Price > money)
             {
+                Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\nYou don't have enough money to buy this.");
                 Console.ResetColor();
                 return null;
             }
 
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"\nYou have selected 1X {selectedSnack.Name}, that'll be {selectedSnack.Price} SEK.");
             Console.ResetColor();

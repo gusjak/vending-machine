@@ -67,7 +67,6 @@ namespace vending_machine
                 Console.ResetColor();
                 return;
             }
-            
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("\n***** RECEIPT *****");
             Console.ResetColor();

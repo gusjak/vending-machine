@@ -13,10 +13,19 @@ namespace vending_machine
 
         public int Withdraw(int amount)
         {
+            Console.Clear();
             if (Account < amount)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\nYou have withdrawn all your life savings already.");
+                Console.WriteLine($"\nYou can't withdraw more than {Account} SEK.");
+                Console.ResetColor();
+                return 0;
+            }
+            
+            if (Account == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"\nYou have nothing to withdraw.");
                 Console.ResetColor();
                 return 0;
             }
