@@ -200,7 +200,7 @@ namespace vending_machine
                                     var pocketMoney = atm.Deposit(amount);
                                     customer.RemoveMoney(pocketMoney);
                                     Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.WriteLine($"\nSuccessfully deposited {pocketMoney} to your account.");
+                                    Console.WriteLine($"\nSuccessfully deposited {pocketMoney} SEK to your account.");
                                     Console.ResetColor();
                                     continue;
                                 }
@@ -239,6 +239,7 @@ namespace vending_machine
                         Environment.Exit(0);
                         break;
                 }
+                break;
             }
         }
     }
